@@ -30,10 +30,69 @@ public class MapaCidade {
             for (int j = 0; j < nomeLocal.length; j++) {
                 if (matrizDistancia[i][j] != INF) {
                     tempo[i][j] = matrizDistancia[i][j] * 1.2;
+                }else{
+                    tempo[i][j] = INF;
                 }
             }
         }
         return tempo;
+    }
+
+    public boolean adicionarCidade(String nomeCidade) {
+        boolean teste = verificaRepetido(nomeCidade);
+
+        if (teste) {
+            int numeroAntigoCidades = nomeLocal.length;
+            nomeLocal = expandirVetor(nomeLocal, nomeCidade);
+            int numeroNovoCidades = nomeLocal.length;
+
+            double[][] matrizDistanciaNova = new double[numeroNovoCidades][numeroNovoCidades];
+            double[][] matrizNovoTempo = new double[numeroNovoCidades][numeroNovoCidades];
+
+            for (int i = 0; i < numeroNovoCidades; i++) {
+                for (int j = 0; j < numeroNovoCidades; j++) {
+                    if (i == j) {
+                        matrizDistanciaNova[i][j] = 0;
+                        matrizNovoTempo[i][j] = 0;
+                    }else if(i < numeroAntigoCidades && j < numeroAntigoCidades){
+                        matrizDistanciaNova[i][j] = matrizDistancia[i][j];
+                        matrizNovoTempo[i][j] = matrizTempo[i][j];
+
+                    }else{
+                        matrizDistanciaNova[i][j] = INF;
+                        matrizNovoTempo[i][j] = INF;
+                    }
+
+                }
+            }
+
+            matrizDistancia = matrizDistanciaNova;
+            matrizTempo = matrizNovoTempo;
+            return true;
+        }
+        return false;
+    }
+
+    private boolean verificaRepetido(String novoNome) {
+        for (int i = 0; i < nomeLocal.length; i++) {
+            if (nomeLocal[i].equalsIgnoreCase(novoNome)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private String[] expandirVetor(String[] vetorAntigo, String novoNome) {
+        int numeroCidadesAntigo = vetorAntigo.length;
+        String[] vetorNovo = new String[numeroCidadesAntigo + 1];
+
+        for (int i = 0; i < numeroCidadesAntigo; i++) {
+            vetorNovo[i] = vetorAntigo[i];
+        }
+
+        vetorNovo[numeroCidadesAntigo] = novoNome;
+
+        return vetorNovo;
     }
 
     public String getNomeLocal(int indice) {
