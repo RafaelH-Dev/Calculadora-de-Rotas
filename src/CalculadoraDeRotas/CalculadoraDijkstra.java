@@ -9,7 +9,7 @@ public class CalculadoraDijkstra {
         this.mapa = mapa;
     }
 
-    public void calcularMenorTempo(int origem, int destino) {
+    public double calcularMenorTempo(int origem, int destino) {
 
         int totalLocais = mapa.getTotalLocais();
 
@@ -17,7 +17,7 @@ public class CalculadoraDijkstra {
 
         for (int i = 0; i < totalLocais; i++) {
 
-            menorTempo[i] = 999;
+            menorTempo[i] = MapaCidade.INF;
 
         }
 
@@ -27,20 +27,19 @@ public class CalculadoraDijkstra {
 
         boolean continuar = true;
 
-        for (int i = 0; i < totalLocais && continuar == true; i++) {
+        for (int i = 0; i < totalLocais && continuar; i++) {
 
             int atual = -1;
 
             for (int j = 0; j < totalLocais; j++) {
 
-                if (visitados[j] == false &&
-                        (atual == -1 || menorTempo[j] < menorTempo[atual])) {
+                if (!visitados[j] && (atual == -1 || menorTempo[j] < menorTempo[atual])) {
 
                     atual = j;
                 }
             }
 
-            if (atual == -1 || menorTempo[atual] == 999) {
+            if (atual == -1 || menorTempo[atual] == MapaCidade.INF) {
 
                 continuar = false;
 
@@ -58,10 +57,9 @@ public class CalculadoraDijkstra {
 
                         double tempoLigacao = mapa.getTempo(atual, j);
 
-                        if (tempoLigacao != 999) {
+                        if (tempoLigacao != MapaCidade.INF) {
 
-                            double novoTempo =
-                                    menorTempo[atual] + tempoLigacao;
+                            double novoTempo = menorTempo[atual] + tempoLigacao;
 
                             if (novoTempo < menorTempo[j]) {
 
@@ -72,14 +70,6 @@ public class CalculadoraDijkstra {
                 }
             }
         }
-
-        if (menorTempo[destino] == 999) {
-
-            System.out.println("Não existe rota para esse destino.");
-
-        } else {
-
-            System.out.println("Menor tempo: " + menorTempo[destino]);
-        }
+        return menorTempo[destino];
     }
 }
