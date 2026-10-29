@@ -125,17 +125,27 @@ public class MapaCidade {
         return true;
     }
 
-    public void  definirConexao(int origem, int destino, double distancia){
+    public boolean definirConexao(int origem, int destino, double distancia) {
+        if (origem < 0 || origem >= nomeLocal.length || destino < 0 || destino >= nomeLocal.length || origem == destino) {
+            return false;
+        }
+
+        if (origem < 5 && destino < 5) {
+            return false;
+        }
+
         matrizDistancia[origem][destino] = distancia;
         matrizDistancia[destino][origem] = distancia;
 
-        if(distancia==INF){
+        if (distancia == INF) {
             matrizTempo[origem][destino] = INF;
             matrizTempo[destino][origem] = INF;
-        }else{
+        } else {
             matrizTempo[origem][destino] = distancia * 1.2;
             matrizTempo[destino][origem] = distancia * 1.2;
         }
+
+        return true;
     }
 
     private boolean verificaRepetido(String novoNome) {
@@ -158,6 +168,13 @@ public class MapaCidade {
         vetorNovo[numeroCidadesAntigo] = novoNome;
 
         return vetorNovo;
+    }
+
+    public void listarCidades(){
+        System.out.println("\n--- CIDADES DISPONÍVEIS ---");
+        for (int i = 0; i < nomeLocal.length; i++) {
+            System.out.println("" + i + " " + nomeLocal[i]);
+        }
     }
 
     public String getNomeLocal(int indice) {
