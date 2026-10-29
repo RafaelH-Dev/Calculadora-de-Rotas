@@ -1,7 +1,7 @@
 package CalculadoraDeRotas;
 
 public class MapaCidade {
-    private static final double INF = 999.0;
+    public static final double INF = 999.0;
     private String[] nomeLocal;
     private double[][] matrizDistancia;
     private double[][] matrizTempo;
@@ -71,6 +71,71 @@ public class MapaCidade {
             return true;
         }
         return false;
+    }
+
+    public boolean removerCidade(String nomeCidade){
+        int indiceRemover = -1;
+
+        for(int i = 0; i<nomeLocal.length; i++){
+            if(nomeLocal[i].equalsIgnoreCase(nomeCidade)){
+                indiceRemover = i;
+            }
+        }
+
+
+        if(indiceRemover == -1 || indiceRemover < 5){
+
+            return false;
+        }
+
+        int numeroAntigoCidades = nomeLocal.length;
+        int numeroNovoCidades = numeroAntigoCidades-1;
+
+        String[] novoVetorCidades = new String[numeroNovoCidades];
+
+        int contadorNovoVetor = 0;
+
+
+        for(int i = 0; i<numeroAntigoCidades; i++){
+            if(i != indiceRemover){
+                novoVetorCidades[contadorNovoVetor] =  nomeLocal[i];
+                contadorNovoVetor++;
+            }
+        }
+        nomeLocal = novoVetorCidades;
+
+        double[][] matrizDistanciaNova = new double[numeroNovoCidades][numeroNovoCidades];
+        double[][] matrizTempoNova = new double[numeroNovoCidades][numeroNovoCidades];
+        int novaLinha = 0;
+        for(int i = 0; i<numeroAntigoCidades; i++){
+            if(indiceRemover!=i){
+                int novaColuna = 0;
+                for(int j = 0; j<numeroAntigoCidades; j++){
+                    if(j != indiceRemover) {
+                        matrizDistanciaNova[novaLinha][novaColuna] = matrizDistancia[i][j];
+                        matrizTempoNova[novaLinha][novaColuna] = matrizTempo[i][j];
+                        novaColuna++;
+                    }
+                }
+                novaLinha++;
+            }
+        }
+        matrizDistancia = matrizDistanciaNova;
+        matrizTempo = matrizTempoNova;
+        return true;
+    }
+
+    public void  definirConexao(int origem, int destino, double distancia){
+        matrizDistancia[origem][destino] = distancia;
+        matrizDistancia[destino][origem] = distancia;
+
+        if(distancia==INF){
+            matrizTempo[origem][destino] = INF;
+            matrizTempo[destino][origem] = INF;
+        }else{
+            matrizTempo[origem][destino] = distancia * 1.2;
+            matrizTempo[destino][origem] = distancia * 1.2;
+        }
     }
 
     private boolean verificaRepetido(String novoNome) {
