@@ -113,7 +113,7 @@ public class MenuCidade {
                         if (tempoTotal == MapaCidade.INF) {
                             System.out.printf("Não existe caminho de %s até %s.\n", nomeOrigem, nomeDestino);
                         } else {
-                            System.out.printf("Menor tempo de %s para %s: %.2f unidades.\n", nomeOrigem, nomeDestino, tempoTotal);
+                            System.out.printf("Menor tempo de %s para %s: %.2f minutos.\n", nomeOrigem, nomeDestino, tempoTotal);
                         }
                         System.out.println("----------------------------------------");
                     } else {
