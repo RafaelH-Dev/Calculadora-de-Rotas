@@ -100,7 +100,7 @@ public class MenuCidade {
                     mapa.listarCidades();
                     System.out.println("Digite o índice da cidade de ORIGEM: ");
                     int pontoDePartida = input.nextInt();
-                    System.out.println("Digite o índice da cidade de DESTINO: "); // ou System.out.print
+                    System.out.println("Digite o índice da cidade de DESTINO: ");
                     int localDeDestino = input.nextInt();
                     input.nextLine();
 
@@ -113,7 +113,7 @@ public class MenuCidade {
                         if (tempoTotal == MapaCidade.INF) {
                             System.out.printf("Não existe caminho de %s até %s.\n", nomeOrig, nomeDest);
                         } else {
-                            System.out.printf("Menor tempo de %s para %s: %.2f unidades.\n", nomeOrig, nomeDest, tempoTotal);
+                            System.out.printf("Menor tempo de %s para %s: Horas: %d e Minutos: %d\n", nomeOrig, nomeDest, (int)tempoTotal/60, (int)tempoTotal%60);
                             dijkstra.mostrarCaminho(localDeDestino);
                         }
                         System.out.println("----------------------------------------");
