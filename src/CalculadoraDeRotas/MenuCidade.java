@@ -98,22 +98,23 @@ public class MenuCidade {
 
                 case 5: {
                     mapa.listarCidades();
-                    System.out.print("Digite o índice da cidade de ORIGEM: ");
+                    System.out.println("Digite o índice da cidade de ORIGEM: ");
                     int pontoDePartida = input.nextInt();
-                    System.out.print("Digite o índice da cidade de DESTINO: ");
+                    System.out.println("Digite o índice da cidade de DESTINO: "); // ou System.out.print
                     int localDeDestino = input.nextInt();
                     input.nextLine();
 
                     if (pontoDePartida >= 0 && pontoDePartida < mapa.getTotalLocais() && localDeDestino >= 0 && localDeDestino < mapa.getTotalLocais()) {
                         double tempoTotal = dijkstra.calcularMenorTempo(pontoDePartida, localDeDestino);
-                        String nomeOrigem = mapa.getNomeLocal(pontoDePartida);
-                        String nomeDestino = mapa.getNomeLocal(localDeDestino);
+                        String nomeOrig = mapa.getNomeLocal(pontoDePartida);
+                        String nomeDest = mapa.getNomeLocal(localDeDestino);
 
                         System.out.println("\n----------------------------------------");
                         if (tempoTotal == MapaCidade.INF) {
-                            System.out.printf("Não existe caminho de %s até %s.\n", nomeOrigem, nomeDestino);
+                            System.out.printf("Não existe caminho de %s até %s.\n", nomeOrig, nomeDest);
                         } else {
-                            System.out.printf("Menor tempo de %s para %s: %.2f minutos.\n", nomeOrigem, nomeDestino, tempoTotal);
+                            System.out.printf("Menor tempo de %s para %s: %.2f unidades.\n", nomeOrig, nomeDest, tempoTotal);
+                            dijkstra.mostrarCaminho(localDeDestino);
                         }
                         System.out.println("----------------------------------------");
                     } else {
