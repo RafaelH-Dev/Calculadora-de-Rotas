@@ -57,7 +57,6 @@ public class CalculadoraDijkstra {
                             if (novoTempo < menorTempo[j]) {
                                 menorTempo[j] = novoTempo;
 
-                                // Guarda de onde veio para chegar em j
                                 anterior[j] = atual;
                             }
                         }
@@ -69,7 +68,7 @@ public class CalculadoraDijkstra {
         return menorTempo[destino];
     }
 
-    public void mostrarCaminho(int origem, int destino) {
+    public void mostrarCaminho(int destino) {
 
         int[] caminho = new int[mapa.getTotalLocais()];
         int quantidade = 0;
