@@ -184,11 +184,6 @@ public class MapaCidade {
     public int getTotalLocais() {
         return nomeLocal.length;
     }
-
-    public double getDistancia(int origem, int destino) {
-        return matrizDistancia[origem][destino];
-    }
-
     public double getTempo(int origem, int destino) {
         return matrizTempo[origem][destino];
     }
