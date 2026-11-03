@@ -141,8 +141,8 @@ public class MapaCidade {
             matrizTempo[origem][destino] = INF;
             matrizTempo[destino][origem] = INF;
         } else {
-            matrizTempo[origem][destino] = distancia * 1.2;
-            matrizTempo[destino][origem] = distancia * 1.2;
+            matrizTempo[origem][destino] = distancia * 0.75;
+            matrizTempo[destino][origem] = distancia * 0.75;
         }
 
         return true;

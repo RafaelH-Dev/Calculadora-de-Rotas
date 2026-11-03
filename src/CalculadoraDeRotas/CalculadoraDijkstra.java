@@ -13,51 +13,50 @@ public class CalculadoraDijkstra {
 
         int totalLocais = mapa.getTotalLocais();
 
-        double[] menorTempo = new double[totalLocais];
+        double[] recordeTempo = new double[totalLocais];
         anterior = new int[totalLocais];
-        boolean[] visitados = new boolean[totalLocais];
+        boolean[] cidadesVisitadas = new boolean[totalLocais];
 
         for (int i = 0; i < totalLocais; i++) {
-            menorTempo[i] = MapaCidade.INF;
+            recordeTempo[i] = MapaCidade.INF;
             anterior[i] = -1;
         }
 
-        menorTempo[origem] = 0;
+        recordeTempo[origem] = 0;
         boolean continuar = true;
 
         for (int i = 0; i < totalLocais && continuar; i++) {
 
-            int atual = -1;
+            int cidadeAtual = -1;
 
             for (int j = 0; j < totalLocais; j++) {
-                if (!visitados[j] &&
-                        (atual == -1 || menorTempo[j] < menorTempo[atual])) {
-                    atual = j;
+                if (!cidadesVisitadas[j] && (cidadeAtual == -1 || recordeTempo[j] < recordeTempo[cidadeAtual])) {
+                    cidadeAtual = j;
                 }
             }
 
-            if (atual == -1 || menorTempo[atual] == MapaCidade.INF) {
+            if (cidadeAtual == -1 || recordeTempo[cidadeAtual] == MapaCidade.INF) {
                 continuar = false;
             } else {
 
-                visitados[atual] = true;
+                cidadesVisitadas[cidadeAtual] = true;
 
-                if (atual == destino) {
+                if (cidadeAtual == destino) {
                     continuar = false;
                 } else {
 
                     for (int j = 0; j < totalLocais; j++) {
 
-                        double tempoLigacao = mapa.getTempo(atual, j);
+                        double tempoLigacao = mapa.getTempo(cidadeAtual, j);
 
-                        if (!visitados[j] && tempoLigacao != MapaCidade.INF) {
+                        if (!cidadesVisitadas[j] && tempoLigacao != MapaCidade.INF) {
 
-                            double novoTempo = menorTempo[atual] + tempoLigacao;
+                            double novoTempo = recordeTempo[cidadeAtual] + tempoLigacao;
 
-                            if (novoTempo < menorTempo[j]) {
-                                menorTempo[j] = novoTempo;
+                            if (novoTempo < recordeTempo[j]) {
+                                recordeTempo[j] = novoTempo;
 
-                                anterior[j] = atual;
+                                anterior[j] = cidadeAtual;
                             }
                         }
                     }
@@ -65,7 +64,7 @@ public class CalculadoraDijkstra {
             }
         }
 
-        return menorTempo[destino];
+        return recordeTempo[destino];
     }
 
     public void mostrarCaminho(int destino) {
