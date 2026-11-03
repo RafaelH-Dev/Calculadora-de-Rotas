@@ -65,7 +65,7 @@ public class MenuCidade {
 
                 case 4: {
                     mapa.listarCidades();
-                    System.out.print("Digite o índice da cidade de ORIGEM: ");
+                    System.out.println("Digite o índice da cidade de ORIGEM: ");
                     int pontoDePartida = input.nextInt();
                     System.out.print("Digite o índice da cidade de DESTINO: ");
                     int localDeDestino = input.nextInt();
@@ -75,16 +75,25 @@ public class MenuCidade {
                         int estradaOpcao = input.nextInt();
 
                         double distanciaEstrada;
+                        boolean retornoBool;
 
                         if (estradaOpcao == 1) {
                             distanciaEstrada = MapaCidade.INF;
-                            mapa.definirConexao(pontoDePartida, localDeDestino, distanciaEstrada);
-                            System.out.println("Estrada removida com sucesso!");
+                            retornoBool = mapa.definirConexao(pontoDePartida, localDeDestino, distanciaEstrada);
+                            if (retornoBool) {
+                                System.out.println("Estrada removida com sucesso!");
+                            } else {
+                                System.out.println("Erro ao remover estrada.");
+                            }
                         } else if (estradaOpcao == 2) {
                             System.out.print("Digite a distância em km: ");
                             distanciaEstrada = input.nextDouble();
-                            mapa.definirConexao(pontoDePartida, localDeDestino, distanciaEstrada);
-                            System.out.println("Conexão atualizada com sucesso!");
+                            retornoBool = mapa.definirConexao(pontoDePartida, localDeDestino, distanciaEstrada);
+                            if (retornoBool) {
+                                System.out.println("Conexão atualizada com sucesso!");
+                            } else {
+                                System.out.println("Erro: Não foi possível atualizar a conexão (verifique se não tentou ligar a cidade a si mesma).");
+                            }
                         } else {
                             System.out.println("Opção inválida!");
                         }
@@ -113,7 +122,7 @@ public class MenuCidade {
                         if (tempoTotal == MapaCidade.INF) {
                             System.out.printf("Não existe caminho de %s até %s.\n", nomeOrig, nomeDest);
                         } else {
-                            System.out.printf("Menor tempo de %s para %s: Horas: %d e Minutos: %d\n", nomeOrig, nomeDest, (int)tempoTotal/60, (int)tempoTotal%60);
+                            System.out.printf("Menor tempo de %s para %s: Horas: %d e Minutos: %d\n", nomeOrig, nomeDest, (int) tempoTotal / 60, (int) tempoTotal % 60);
                             dijkstra.mostrarCaminho(localDeDestino);
                         }
                         System.out.println("----------------------------------------");
