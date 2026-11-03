@@ -29,7 +29,7 @@ public class MapaCidade {
         for (int i = 0; i < nomeLocal.length; i++) {
             for (int j = 0; j < nomeLocal.length; j++) {
                 if (matrizDistancia[i][j] != INF) {
-                    tempo[i][j] = matrizDistancia[i][j] * 1.2;
+                    tempo[i][j] = matrizDistancia[i][j] * 0.75;
                 }else{
                     tempo[i][j] = INF;
                 }
